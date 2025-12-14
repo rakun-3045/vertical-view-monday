@@ -1,0 +1,139 @@
+/* FieldRow.css - Styles for individual field rows */
+
+.field-row {
+  display: flex;
+  padding: 14px 20px;
+  border-bottom: 1px solid #f0f1f5;
+  transition: background-color 0.15s ease;
+  align-items: flex-start;
+  gap: 16px;
+  min-height: 56px;
+}
+
+.field-row:last-child {
+  border-bottom: none;
+}
+
+.field-row.editable {
+  cursor: pointer;
+}
+
+.field-row.editable:hover {
+  background-color: rgba(0, 115, 234, 0.04);
+}
+
+.field-row.editing {
+  background-color: rgba(0, 115, 234, 0.08);
+  cursor: default;
+}
+
+/* Field Label Section */
+.field-label {
+  min-width: 200px;
+  max-width: 200px;
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  flex-shrink: 0;
+}
+
+.field-type-icon {
+  font-size: 14px;
+  line-height: 1;
+  opacity: 0.8;
+  margin-top: 2px;
+  flex-shrink: 0;
+}
+
+.field-label-text {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+}
+
+.field-title {
+  font-size: 13px;
+  font-weight: 500;
+  color: #323338;
+  line-height: 1.3;
+  word-break: break-word;
+}
+
+.field-type-name {
+  font-size: 11px;
+  color: #9699a6;
+  text-transform: capitalize;
+}
+
+.read-only-badge {
+  font-size: 11px;
+  margin-top: 2px;
+  flex-shrink: 0;
+  opacity: 0.7;
+}
+
+/* Field Content Section */
+.field-content {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  position: relative;
+}
+
+.edit-hint {
+  opacity: 0;
+  transition: opacity 0.15s ease;
+  color: #0073ea;
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+.field-row.editable:hover .edit-hint {
+  opacity: 0.7;
+}
+
+.field-row.editable:hover .edit-hint:hover {
+  opacity: 1;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .field-row {
+    flex-direction: column;
+    gap: 8px;
+    padding: 12px 16px;
+  }
+
+  .field-label {
+    min-width: 100%;
+    max-width: 100%;
+  }
+
+  .field-content {
+    width: 100%;
+    padding-left: 24px;
+  }
+}
+
+/* Focus styles for accessibility */
+.field-row.editable:focus-visible {
+  outline: 2px solid #0073ea;
+  outline-offset: -2px;
+}
+
+/* Animation for editing state */
+.field-row.editing {
+  animation: highlight 0.3s ease;
+}
+
+@keyframes highlight {
+  0% {
+    background-color: rgba(0, 115, 234, 0.16);
+  }
+  100% {
+    background-color: rgba(0, 115, 234, 0.08);
+  }
+}

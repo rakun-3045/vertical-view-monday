@@ -1,0 +1,243 @@
+/* FieldEditor.css - Styles for inline field editing */
+
+.field-editor {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  width: 100%;
+  flex: 1;
+}
+
+.editor-input-wrapper {
+  flex: 1;
+  min-width: 0;
+}
+
+/* Base Input Styles */
+.editor-input,
+.editor-textarea,
+.editor-select {
+  width: 100%;
+  padding: 8px 12px;
+  font-size: 13px;
+  font-family: inherit;
+  color: #323338;
+  background: #ffffff;
+  border: 2px solid #0073ea;
+  border-radius: 6px;
+  outline: none;
+  transition: border-color 0.15s ease, box-shadow 0.15s ease;
+}
+
+.editor-input:focus,
+.editor-textarea:focus,
+.editor-select:focus {
+  border-color: #0060c4;
+  box-shadow: 0 0 0 3px rgba(0, 115, 234, 0.15);
+}
+
+.editor-input:disabled,
+.editor-textarea:disabled,
+.editor-select:disabled {
+  background: #f6f7fb;
+  border-color: #d0d4e4;
+  cursor: not-allowed;
+}
+
+.editor-input::placeholder,
+.editor-textarea::placeholder {
+  color: #9699a6;
+}
+
+/* Textarea */
+.editor-textarea {
+  resize: vertical;
+  min-height: 80px;
+  line-height: 1.5;
+}
+
+/* Select */
+.editor-select {
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%23676879' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 12px center;
+  padding-right: 36px;
+  cursor: pointer;
+}
+
+/* Number Input - hide spinners */
+.editor-input[type="number"] {
+  appearance: textfield;
+}
+
+.editor-input[type="number"]::-webkit-outer-spin-button,
+.editor-input[type="number"]::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Date Input */
+.editor-input[type="date"] {
+  cursor: pointer;
+}
+
+/* Color Input Wrapper */
+.editor-color-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.editor-color {
+  width: 40px;
+  height: 40px;
+  padding: 2px;
+  border: 2px solid #0073ea;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+/* Checkbox */
+.editor-checkbox-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  cursor: pointer;
+  padding: 8px 0;
+}
+
+.editor-checkbox-wrapper input[type="checkbox"] {
+  width: 20px;
+  height: 20px;
+  accent-color: #00ca72;
+  cursor: pointer;
+}
+
+.editor-checkbox-label {
+  font-size: 13px;
+  color: #323338;
+}
+
+/* Rating Stars */
+.editor-rating {
+  display: flex;
+  gap: 4px;
+  padding: 4px 0;
+}
+
+.rating-star {
+  background: none;
+  border: none;
+  padding: 2px;
+  font-size: 24px;
+  color: #d0d4e4;
+  cursor: pointer;
+  transition: color 0.15s ease, transform 0.1s ease;
+}
+
+.rating-star:hover {
+  color: #ffcb00;
+  transform: scale(1.1);
+}
+
+.rating-star.filled {
+  color: #ffcb00;
+}
+
+.rating-star:disabled {
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
+/* Action Buttons */
+.editor-actions {
+  display: flex;
+  gap: 4px;
+  flex-shrink: 0;
+}
+
+.editor-btn {
+  width: 32px;
+  height: 32px;
+  border: none;
+  border-radius: 6px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.15s ease;
+}
+
+.editor-btn.save {
+  background: #00ca72;
+  color: white;
+}
+
+.editor-btn.save:hover {
+  background: #00b461;
+}
+
+.editor-btn.save:disabled {
+  background: #c5c7d0;
+  cursor: not-allowed;
+}
+
+.editor-btn.cancel {
+  background: #f6f7fb;
+  color: #676879;
+}
+
+.editor-btn.cancel:hover {
+  background: #e6e9ef;
+  color: #323338;
+}
+
+.editor-btn.cancel:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+/* Spinner */
+.btn-spinner {
+  width: 14px;
+  height: 14px;
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  border-top-color: white;
+  border-radius: 50%;
+  animation: btn-spin 0.6s linear infinite;
+}
+
+@keyframes btn-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* Read-only message */
+.editor-readonly {
+  padding: 8px 12px;
+  background: #f6f7fb;
+  border-radius: 6px;
+  font-size: 13px;
+  color: #9699a6;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .field-editor {
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .editor-actions {
+    align-self: flex-end;
+  }
+
+  .editor-btn {
+    width: 36px;
+    height: 36px;
+  }
+}

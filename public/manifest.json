@@ -1,0 +1,8 @@
+{
+  "short_name": "Item Vertical View",
+  "name": "Item Vertical View - All Fields in One Place",
+  "start_url": ".",
+  "display": "standalone",
+  "theme_color": "#000000",
+  "background_color": "#ffffff"
+}
