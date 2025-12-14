@@ -1,0 +1,418 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Item Vertical View - Demo</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
+            background-color: #f6f7fb;
+            color: #323338;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .action-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px;
+            background-color: #ffffff;
+            border-bottom: 1px solid #e6e9ef;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .action-bar-left h3 {
+            font-size: 18px;
+            font-weight: 600;
+            color: #323338;
+        }
+
+        .action-bar-right {
+            display: flex;
+            gap: 12px;
+        }
+
+        .btn {
+            padding: 8px 16px;
+            border: 1px solid #d0d4e4;
+            background-color: #ffffff;
+            color: #323338;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 14px;
+            transition: all 0.2s;
+        }
+
+        .btn:hover {
+            background-color: #f0f0f0;
+            border-color: #0073ea;
+        }
+
+        .demo-banner {
+            padding: 12px 20px;
+            background-color: #e8f5e9;
+            border-bottom: 1px solid #c8e6c9;
+            color: #2e7d32;
+            font-weight: 500;
+        }
+
+        .fields-container {
+            background-color: #ffffff;
+            min-height: 400px;
+        }
+
+        .field-row {
+            display: flex;
+            padding: 12px 20px;
+            border-bottom: 1px solid #f0f0f0;
+            transition: background-color 0.2s;
+        }
+
+        .field-row:hover {
+            background-color: #f6f7fb;
+        }
+
+        .field-row:last-child {
+            border-bottom: none;
+        }
+
+        .field-label {
+            min-width: 200px;
+            max-width: 200px;
+            padding-right: 16px;
+        }
+
+        .field-label-title {
+            font-weight: 600;
+            color: #323338;
+            font-size: 14px;
+            margin-bottom: 4px;
+        }
+
+        .field-label-type {
+            font-size: 12px;
+            color: #676879;
+            opacity: 0.6;
+            text-transform: capitalize;
+        }
+
+        .field-content {
+            flex: 1;
+            min-width: 0;
+            padding: 8px;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        .field-content:hover {
+            background-color: rgba(0, 113, 220, 0.08);
+        }
+
+        .field-value {
+            color: #323338;
+            font-size: 14px;
+        }
+
+        .field-value.secondary {
+            color: #676879;
+        }
+
+        .status-badge {
+            display: inline-block;
+            padding: 4px 12px;
+            border-radius: 4px;
+            font-size: 12px;
+            font-weight: 500;
+        }
+
+        .status-in-progress {
+            background-color: #fff3e0;
+            color: #e65100;
+        }
+
+        .status-high {
+            background-color: #ffebee;
+            color: #c62828;
+        }
+
+        .people-chip {
+            display: inline-block;
+            padding: 4px 12px;
+            background-color: #e3f2fd;
+            border-radius: 16px;
+            font-size: 12px;
+            color: #0d47a1;
+        }
+
+        .link-value {
+            color: #0073ea;
+            text-decoration: none;
+        }
+
+        .link-value:hover {
+            text-decoration: underline;
+        }
+
+        .footer {
+            padding: 20px;
+            text-align: center;
+            color: #676879;
+            font-size: 12px;
+        }
+
+        .grid-layout {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            padding: 20px;
+        }
+
+        @media (max-width: 768px) {
+            .grid-layout {
+                grid-template-columns: 1fr;
+            }
+
+            .field-row {
+                flex-direction: column;
+                gap: 8px;
+            }
+
+            .field-label {
+                min-width: 100%;
+                max-width: 100%;
+                padding-right: 0;
+            }
+        }
+
+        /* Horizontal View Styles (Table Mode) */
+        .horizontal-view {
+            display: grid;
+            grid-template-rows: auto auto;
+            grid-auto-flow: column;
+            grid-auto-columns: 200px;
+            overflow-x: auto;
+            padding: 0;
+            border: 1px solid #e6e9ef;
+            background-color: #fff;
+            align-items: stretch;
+        }
+
+        .horizontal-view .field-row {
+            display: contents;
+        }
+
+        .horizontal-view .field-label {
+            grid-row: 1;
+            background-color: #f5f6f8;
+            border-bottom: 2px solid #d0d4e4;
+            border-right: 1px solid #e6e9ef;
+            padding: 12px;
+            min-width: 0;
+            max-width: none;
+            margin: 0;
+            height: 100%;
+        }
+
+        .horizontal-view .field-content {
+            grid-row: 2;
+            border-bottom: none;
+            border-right: 1px solid #e6e9ef;
+            padding: 12px;
+            display: flex;
+            align-items: center;
+            background-color: #fff;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Action Bar -->
+        <div class="action-bar">
+            <div class="action-bar-left">
+                <h3>Sample Project Task</h3>
+            </div>
+            <div class="action-bar-right">
+                <button class="btn" id="toggle-view-btn">↔️ Toggle View</button>
+                <button class="btn">🔄 Refresh</button>
+                <button class="btn">🔍 Search</button>
+                <button class="btn">📥 Export</button>
+            </div>
+        </div>
+
+        <!-- Demo Banner -->
+        <div class="demo-banner">
+            📋 Demo Mode: Showing sample data with Item Vertical View implementation
+        </div>
+
+        <!-- Fields Container -->
+        <div class="fields-container">
+            <!-- Field 1: Name (Text) -->
+            <div class="field-row">
+                <div class="field-label">
+                    <div class="field-label-title">Name</div>
+                    <div class="field-label-type">text</div>
+                </div>
+                <div class="field-content">
+                    <div class="field-value">Implement Feature X</div>
+                </div>
+            </div>
+
+            <!-- Field 2: Status (Status) -->
+            <div class="field-row">
+                <div class="field-label">
+                    <div class="field-label-title">Status</div>
+                    <div class="field-label-type">status</div>
+                </div>
+                <div class="field-content">
+                    <span class="status-badge status-in-progress">In Progress</span>
+                </div>
+            </div>
+
+            <!-- Field 3: Priority (Status) -->
+            <div class="field-row">
+                <div class="field-label">
+                    <div class="field-label-title">Priority</div>
+                    <div class="field-label-type">status</div>
+                </div>
+                <div class="field-content">
+                    <span class="status-badge status-high">High</span>
+                </div>
+            </div>
+
+            <!-- Field 4: Assigned To (People) -->
+            <div class="field-row">
+                <div class="field-label">
+                    <div class="field-label-title">Assigned To</div>
+                    <div class="field-label-type">people</div>
+                </div>
+                <div class="field-content">
+                    <span class="people-chip">👤 John Doe</span>
+                </div>
+            </div>
+
+            <!-- Field 5: Due Date (Date) -->
+            <div class="field-row">
+                <div class="field-label">
+                    <div class="field-label-title">Due Date</div>
+                    <div class="field-label-type">date</div>
+                </div>
+                <div class="field-content">
+                    <div class="field-value">📅 2024-12-31</div>
+                </div>
+            </div>
+
+            <!-- Field 6: Description (Long Text) -->
+            <div class="field-row">
+                <div class="field-label">
+                    <div class="field-label-title">Description</div>
+                    <div class="field-label-type">long-text</div>
+                </div>
+                <div class="field-content">
+                    <div class="field-value">This is a detailed description of the task that needs to be completed with comprehensive information about requirements and deliverables.</div>
+                </div>
+            </div>
+
+            <!-- Field 7: Budget (Numbers) -->
+            <div class="field-row">
+                <div class="field-label">
+                    <div class="field-label-title">Budget</div>
+                    <div class="field-label-type">numbers</div>
+                </div>
+                <div class="field-content">
+                    <div class="field-value">💰 $5,000.00</div>
+                </div>
+            </div>
+
+            <!-- Field 8: Timeline (Timeline) -->
+            <div class="field-row">
+                <div class="field-label">
+                    <div class="field-label-title">Timeline</div>
+                    <div class="field-label-type">timeline</div>
+                </div>
+                <div class="field-content">
+                    <div class="field-value">📆 2024-12-01 → 2024-12-31</div>
+                </div>
+            </div>
+
+            <!-- Field 9: Tags (Tags) -->
+            <div class="field-row">
+                <div class="field-label">
+                    <div class="field-label-title">Tags</div>
+                    <div class="field-label-type">tags</div>
+                </div>
+                <div class="field-content">
+                    <span class="people-chip">🏷️ urgent</span>
+                    <span class="people-chip" style="margin-left: 8px;">🏷️ frontend</span>
+                </div>
+            </div>
+
+            <!-- Field 10: Link (Link) -->
+            <div class="field-row">
+                <div class="field-label">
+                    <div class="field-label-title">Link</div>
+                    <div class="field-label-type">link</div>
+                </div>
+                <div class="field-content">
+                    <a href="https://example.com/project" class="link-value" target="_blank">https://example.com/project</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <div class="footer">
+            <p>✅ Item Vertical View App - All fields displayed vertically. No horizontal scrolling needed!</p>
+            <p style="margin-top: 8px;">Click any field to edit (in monday.com integration)</p>
+        </div>
+    </div>
+
+    <script>
+        // Add interactivity
+        const container = document.querySelector('.fields-container');
+        const toggleBtn = document.getElementById('toggle-view-btn');
+        const banner = document.querySelector('.demo-banner');
+        
+        // Initial state: Horizontal View
+        container.classList.add('horizontal-view');
+        banner.textContent = '📋 Demo Mode: Showing "Horizontal Scroll" problem (Standard View)';
+
+        toggleBtn.addEventListener('click', function(e) {
+            e.stopPropagation(); // Prevent the generic btn handler
+            container.classList.toggle('horizontal-view');
+            
+            if (container.classList.contains('horizontal-view')) {
+                banner.textContent = '📋 Demo Mode: Showing "Horizontal Scroll" problem (Standard View)';
+            } else {
+                banner.textContent = '✅ Demo Mode: Showing "Item Vertical View" solution';
+            }
+        });
+
+        document.querySelectorAll('.field-content').forEach(field => {
+            field.addEventListener('click', function() {
+                alert('In the full integration with monday.com, clicking a field would allow you to edit it inline.');
+            });
+        });
+
+        document.querySelectorAll('.btn').forEach(btn => {
+            if (btn.id === 'toggle-view-btn') return;
+            
+            btn.addEventListener('click', function() {
+                const action = this.textContent.trim();
+                alert(`${action} button clicked!\n\nIn the full app:\n- 🔄 Refresh: Polls for updates\n- 🔍 Search: Browser find (Ctrl+F)\n- 📥 Export: CSV/PDF export`);
+            });
+        });
+    </script>
+</body>
+</html>

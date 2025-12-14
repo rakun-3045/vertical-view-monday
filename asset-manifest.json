@@ -1,0 +1,13 @@
+{
+  "files": {
+    "main.css": "/vertical-view-monday/static/css/main.f3116bcd.css",
+    "main.js": "/vertical-view-monday/static/js/main.4b1bad90.js",
+    "static/js/872.13e02ba8.chunk.js": "/vertical-view-monday/static/js/872.13e02ba8.chunk.js",
+    "static/js/337.45fcb5b2.chunk.js": "/vertical-view-monday/static/js/337.45fcb5b2.chunk.js",
+    "index.html": "/vertical-view-monday/index.html"
+  },
+  "entrypoints": [
+    "static/css/main.f3116bcd.css",
+    "static/js/main.4b1bad90.js"
+  ]
+}
